@@ -1,9 +1,8 @@
 import json
 
-from src.utils import read_json
-
 from src.category import Category
 from src.product import Product
+from src.utils import read_json
 
 
 def test_product_init(product: Product) -> None:
