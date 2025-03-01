@@ -4,12 +4,6 @@ from src.category import Category
 from src.product import Product
 from src.utils import read_json
 
-
-def test_product_init(product: Product) -> None:
-    assert product.name == "Samsung Galaxy S23 Ultra"
-    assert product.description == "256GB, Серый цвет, 200MP камера"
-
-
 def test_read_json() -> None:
 
     # Создаем тестовый JSON-файл
