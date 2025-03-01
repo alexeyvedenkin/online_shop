@@ -30,34 +30,34 @@ def create_object_from_json(data: Any) -> list:
     return categories
 
 
-if __name__ == '__main__':
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    # print(product1.name)
-    # print(product1.description)
-    # print(product1.price)
-    # print(product1.quantity)
-    product2 = Product("Samsung Galaxy S24 Ultra", "256GB, Серый цвет, 200MP камера", 185000.0, 5)
-    product3 = Product("Samsung Galaxy S25 Ultra", "256GB, Серый цвет, 200MP камера", 190000.0, 5)
-    product4 = Product("Samsung Galaxy S26 Ultra", "256GB, Серый цвет, 200MP камера", 195000.0, 5)
-
-    category = Category('Smart', "Смартфоны, как средство не только коммуникации",
-              [product1, product2, product3, product4])
-    category1 = [product1, product2, product3, product4]
-    category2 = [product1]
-    print(Category.category_count)
-    print(Category.product_count)
-    print(category.products)
-    # goods_raw = read_json('../data/products.json')
-    # print(list(goods_raw))
-    # categories_data = create_object_from_json(goods_raw)
-    # print(categories_data[0])
-    print(category.name)
-    print(category.description)
-    # print(category.products)
-    # print(category1)
-    # print(category2)
-    product5 = Product("Apple S26 Ultra", "256GB, Серый цвет, 200MP камера", 200000.0, 5)
-    category.products = product5
-    print(category.products)
-    print(Category.product_count)
+# if __name__ == '__main__':
+#     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+#     # print(product1.name)
+#     # print(product1.description)
+#     # print(product1.price)
+#     # print(product1.quantity)
+#     product2 = Product("Samsung Galaxy S24 Ultra", "256GB, Серый цвет, 200MP камера", 185000.0, 5)
+#     product3 = Product("Samsung Galaxy S25 Ultra", "256GB, Серый цвет, 200MP камера", 190000.0, 5)
+#     product4 = Product("Samsung Galaxy S26 Ultra", "256GB, Серый цвет, 200MP камера", 195000.0, 5)
+#
+#     category = Category('Smart', "Смартфоны, как средство не только коммуникации",
+#               [product1, product2, product3, product4])
+#     category1 = [product1, product2, product3, product4]
+#     category2 = [product1]
+#     print(Category.category_count)
+#     print(Category.product_count)
+#     print(category.products)
+#     # goods_raw = read_json('../data/products.json')
+#     # print(list(goods_raw))
+#     # categories_data = create_object_from_json(goods_raw)
+#     # print(categories_data[0])
+#     print(category.name)
+#     print(category.description)
+#     # print(category.products)
+#     # print(category1)
+#     # print(category2)
+#     product5 = Product("Apple S26 Ultra", "256GB, Серый цвет, 200MP камера", 200000.0, 5)
+#     category.products = product5
+#     print(category.products)
+#     print(Category.product_count)
 
