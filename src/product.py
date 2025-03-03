@@ -14,9 +14,14 @@ class Product:
 
 
     @classmethod
-    def new_product(cls, name, description, price, quantity):
-        return cls(name, description, price, quantity)
-
+    def new_product(cls, data):
+        # Метод создания нового продукта из словаря
+        return cls(
+            data["name"],  # Название продукта
+            data["description"],  # Описание продукта
+            data["price"],  # Цена продукта
+            data["quantity"]  # Количество продукта
+        )
 
     @property
     def price(self):
@@ -25,21 +30,21 @@ class Product:
 
     @price.setter
     def price(self, new_price: float):
-        if new_price < 0:
+        if new_price <= 0:
             print('Цена не должна быть нулевая или отрицательная')
             return
         self.__price = new_price
 
 
 #
-# if __name__ == '__main__':
-#     product2 = Product("Honor 70S+ pro", "512GB, Черный цвет, 400MP камера", 180000.0, 5)
-#     print(product2.name)
-#     print(product2.description)
-#     print(product2.price)
-#     print(product2.quantity)
-#
-#     product2.price = -10000.0
-#     print(product2.price)
-#     product2.price = 210000.0
-#     print(product2.price)
+if __name__ == '__main__':
+    product2 = Product("Honor 70S+ pro", "512GB, Черный цвет, 400MP камера", 180000.0, 5)
+    print(product2.name)
+    print(product2.description)
+    print(product2.price)
+    print(product2.quantity)
+
+    product2.price = -10000.0
+    print(product2.price)
+    product2.price = 210000.0
+    print(product2.price)
