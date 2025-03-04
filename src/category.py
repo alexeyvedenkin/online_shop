@@ -36,6 +36,7 @@ class Category:
         if not isinstance(product, Product):
             raise TypeError("Product must be an instance of Product")
         self.__products.append(product)
+        Category.product_count += 1
 
     def get_products(self):
         return self.__products
@@ -53,7 +54,7 @@ class Category:
     def products(self):
         product_str = ""
         for product in self.__products:
-            product_str = f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            product_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_str
     #
     #
@@ -80,3 +81,10 @@ if __name__ == "__main__":
     )
     print(category1.product_count)
     print(category1.products)
+    print(category1.products)
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+    category1.add_product(product4)
+    print(555)
+    print(category1.products)
+    print(666)
+    print(category1.product_count)
