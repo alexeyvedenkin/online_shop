@@ -22,4 +22,3 @@ def test_category_products_setter(first_category, product):
     assert len(first_category.product_in_list) == 2
     first_category.products = product
     assert len(first_category.product_in_list) == 3
-

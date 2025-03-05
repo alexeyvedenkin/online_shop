@@ -1,26 +1,12 @@
 from src.product import Product
 
+
 class Category:
     name: str
     description: str
     products: list
     category_count = 0
     product_count = 0
-
-    # def __init__(self, name, description, __products: list = None):
-    #     """Определены параметры класса Category
-    #     """
-    #     self.name = name
-    #     self.description = description
-    #     # Check if products is a list
-    #     if __products is None:
-    #         self.__products = []
-    #     # elif not isinstance(__products, list):
-    #     #     raise TypeError("Products must be a list")
-    #     else:
-    #         self.__products = __products
-    #     Category.category_count += 1
-    #     Category.product_count += len(__products) if __products else 0
 
     def __init__(self, name, description, __products=None):
         """Определены параметры класса Category
@@ -41,32 +27,20 @@ class Category:
     def get_products(self):
         return self.__products
 
-
-    # def add_product(self, product: Product):
-    #     self.__products.append(product)
-
-    # Метод для вывода приватного атрибута
     def print_list(self):
         print(self.__products)
 
-    #
     @property
     def products(self):
         product_str = ""
         for product in self.__products:
             product_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_str
-    #
-    #
+
     @products.setter
     def products(self, product: Product):
         self.__products.append(product)
         Category.product_count += 1
-
-    #
-    # @property
-    # def product_in_list(self):
-    #     return self.__products
 
 
 if __name__ == "__main__":

@@ -60,4 +60,3 @@ def create_object_from_json(data: Any) -> list:
 #     category.products = product5
 #     print(category.products)
 #     print(Category.product_count)
-
