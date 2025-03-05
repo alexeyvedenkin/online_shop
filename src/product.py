@@ -5,35 +5,6 @@ class Product:
     price: float
     quantity: int
 
-    @classmethod
-    def new_product(cls, data):  # Проверка наименований
-        existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
-        if existing_product:
-            print(f"Продукт с именем {data['name']} уже существует.")
-            # Увеличение количества
-            existing_product.quantity += data["quantity"]
-            print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
-        # # Запрос на изменение цены
-        # if existing_product.price != data["price"]:
-        #     response = input(
-        #     f"Цена {data['name']} отличается. Текущая цена: {existing_product.price}, новая: {data['price']}. Изменить? (да/нет): ")
-        #     if response.lower() == "да":
-        #         existing_product.price = data["price"]
-        #         print(f"Цена продукта {data['name']} изменена на {existing_product.price}.")
-        #     else:
-        #         print("Изменение отменено.")
-        #         return existing_product
-        else:
-            # Создание нового продукта
-            new_product = cls(
-                data["name"],  # Название
-                data["description"],  # Описание
-                data["price"],  # Цена
-                data["quantity"]  # Количество
-            )
-        cls.all_products.append(new_product)  # Добавление в список
-        return new_product
-
     def __init__(self, name, description, price, quantity):
         """Определены параметры класса Product
         """
@@ -41,22 +12,12 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        # Добавление продукта в список all_products
+        Product.all_products.append(self)
 
-
-    # # @classmethod
-    # def new_product(cls, data):
-    #     # Метод создания нового продукта из словаря
-    #     return cls(
-    #         data["name"],  # Название продукта
-    #         data["description"],  # Описание продукта
-    #         data["price"],  # Цена продукта
-    #         data["quantity"]  # Количество продукта
-    #     )
-    #
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, new_price: float):
@@ -65,14 +26,42 @@ class Product:
             print('Цена не должна быть нулевая или отрицательная')
             return
         elif new_price < self.__price:
-            if input(f'Старая цена: {self.__price}руб., новая цена: {new_price}руб. Подтверждаете уменьшение цены? y/n : ') not in ['Y', 'y']:
+            if input(
+                    f'Старая цена: {self.__price}руб., новая цена: {new_price}руб. Подтверждаете уменьшение цены? y/n : ') not in [
+                'Y', 'y']:
                 price_reducing_confirmation = False
         if price_reducing_confirmation:
             self.__price = new_price
         return self.__price
 
-#
+    @classmethod
+    def new_product(cls, data):  # Проверка наименований
+        existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
+        if existing_product:
+            print(f"Продукт с именем {data['name']} уже существует.")
+            # Увеличение количества
+            existing_product.quantity += data["quantity"]
+            print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
+            return existing_product
+        else:
+            # Создание нового продукта
+            new_product = cls(
+                data["name"],  # Название
+                data["description"],  # Описание
+                data["price"],  # Цена
+                data["quantity"]  # Количество
+            )
+            cls.all_products.append(new_product)  # Добавление в список
+        return new_product
+
+
 if __name__ == '__main__':
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+    print(Product.all_products)
+
     product2 = Product("Honor 70 Pro+", "512GB, Черный цвет, 400MP камера", 180000.0, 5)
     print(product2.name)
     print(product2.description)
