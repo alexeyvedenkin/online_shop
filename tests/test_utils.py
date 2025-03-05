@@ -1,7 +1,5 @@
 import json
 
-from src.category import Category
-from src.product import Product
 from src.utils import read_json
 
 

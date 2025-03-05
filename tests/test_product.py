@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -6,7 +8,7 @@ def test_product_init(product: Product) -> None:
     assert product.description == "256GB, Серый цвет, 200MP камера"
 
 
-def test_product_create():
+def test_product_create() -> None:
     product = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
     product.name = "Xiaomi Redmi Note 11"
     product.description = "1024GB, Синий"
@@ -14,7 +16,7 @@ def test_product_create():
     product.quantity = 14
 
 
-def test_product_update(capsys, product):
+def test_product_update(capsys: pytest.CaptureFixture[str], product: Product) -> None:
     product.price = -1
     message = capsys.readouterr()
     assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
