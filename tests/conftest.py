@@ -4,19 +4,20 @@ from src.utils import Category, Product
 
 
 @pytest.fixture
-def first_category():
-    return Category(
+def first_category() -> Category:
+    category = Category(
         name="Smart",
         description="Смартфоны, как средство не только коммуникации",
         products=[
-            Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5),
+            Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 2),
             Product("Samsung Galaxy S24 Ultra", "256GB, Серый цвет, 200MP камера", 185000.0, 5)
         ]
     )
+    return category
 
 
 @pytest.fixture
-def second_category():
+def second_category() -> Category:
     return Category(
         name="TV",
         description="Телевизоры",
@@ -27,6 +28,6 @@ def second_category():
 
 
 @pytest.fixture
-def product():
+def product() -> Product:
     return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000, 5
                    )
