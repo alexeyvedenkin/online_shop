@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from src.category import Category
@@ -6,7 +8,7 @@ from src.product_iterator import ProductIterator
 
 
 @pytest.fixture
-def empty_product_list():
+def empty_product_list() -> None:
     """Очищает список продуктов перед каждым тестом"""
     Product.all_products.clear()
 
@@ -54,5 +56,5 @@ def test_product6() -> Product:
 
 
 @pytest.fixture()
-def product_iterator(first_category):
+def product_iterator(first_category: Category) -> Any:
     return ProductIterator(first_category)

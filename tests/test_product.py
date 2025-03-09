@@ -30,7 +30,7 @@ def test_product_update(capsys: pytest.CaptureFixture[str], product: Product) ->
     assert product.price == 200000.0
 
 
-def test_new_product(product) -> None:
+def test_new_product(product: Product) -> None:
     new_good = Product("55\" QLED 4K", "Фоновая подсветка",
                        123000.0, 7)
     if product.name != new_good.name:
@@ -47,11 +47,11 @@ def test_new_product(product) -> None:
         # assert product.quantity == product.quantity + new_good.quantity
 
 
-def test_product_str(product) -> None:
+def test_product_str(product: Product) -> None:
     assert str(product) == "Samsung Galaxy S23 Ultra, 180000 руб. Остаток: 5 шт."
 
 
-def test_get_total_cost(test_product6) -> None:
+def test_get_total_cost(test_product6: Product) -> None:
     Product.all_products.clear()
     Product.all_products.append(test_product6)
     total_cost = Product.get_total_cost()

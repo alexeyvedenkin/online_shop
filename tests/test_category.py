@@ -1,3 +1,5 @@
+from typing import Any
+
 import pytest
 
 from src.category import Category
@@ -24,14 +26,13 @@ def test_category_products_setter(first_category: Category, product: Product) ->
     assert len(first_category.products_in_list) == 3
 
 
-def test_category_str(first_category)-> None:
+def test_category_str(first_category: Category) -> None:
     assert str(first_category) == "Smart, количество продуктов: 7 шт."
 
 
-def test_product_iterator(product_iterator) -> None:
+def test_product_iterator(product_iterator: Any) -> None:
     assert product_iterator.index == 0
     assert next(product_iterator).name == "Samsung Galaxy S23 Ultra"
     assert next(product_iterator).name == "Samsung Galaxy S24 Ultra"
     with pytest.raises(StopIteration):
         next(product_iterator)
-
