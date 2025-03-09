@@ -6,6 +6,8 @@ if __name__ == "__main__":
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
+    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+
     category1 = Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
@@ -16,11 +18,14 @@ if __name__ == "__main__":
     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
     category1.add_product(product4)
     print(category1.products)
-    print(category1.product_count)
-
+    print(category1)
+    print(f'Количество наименований продуктов в категории {category1.product_name_count}')
+    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+    print()
     new_product = Product.new_product(
         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
          "quantity": 5})
+    print()
     print(new_product.name)
     print(new_product.description)
     print(new_product.price)
@@ -33,3 +38,8 @@ if __name__ == "__main__":
     print(new_product.price)
     new_product.price = 0
     print(new_product.price)
+
+    print(category1.products)
+    print(category1)
+    print(f'Количество наименований продуктов в категории {category1.product_name_count}')
+    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")

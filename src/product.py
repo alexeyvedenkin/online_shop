@@ -19,7 +19,7 @@ class Product:
         Product.all_products.append(self)
 
     def __str__(self) -> str:
-        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт.\n"
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @property
     def price(self) -> Any:
@@ -64,27 +64,26 @@ class Product:
         """Подсчитывает общую стоимость товаров на складе"""
         return sum(product.price * product.quantity for product in cls.all_products)
 
-if __name__ == '__main__':
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-
-    print(product1)
-    print(product2)
-    print(product3)
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    new_product = Product.new_product(
-        {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": 5})
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    for product in Product.all_products:
-        print(product)
-
+# if __name__ == '__main__':
+#     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+#     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+#     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+#
+#     print(product1)
+#     print(product2)
+#     print(product3)
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     new_product = Product.new_product(
+#         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
+#          "quantity": 5})
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     for product in Product.all_products:
+#         print(product)

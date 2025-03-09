@@ -1,5 +1,6 @@
-from src.product import Product
 from typing import Any, Optional
+
+from src.product import Product
 
 
 class Category:
@@ -10,7 +11,7 @@ class Category:
     product_name_count = 0
     total_product_count = 0
 
-    def __init__(self, name: str, description: str, products: Optional[Any]=None) -> None:
+    def __init__(self, name: str, description: str, products: Optional[Any] = None) -> None:
         """Определены параметры класса Category
         """
         self.name = name
@@ -28,14 +29,10 @@ class Category:
         return self.__products
 
     @property
-    def total_product_count(self):
-        # Подсчет общего количества товаров
-        return sum(product.quantity for product in self.__products)
-
-    @total_product_count.setter
-    def total_product_count(self, product: Product):
-        # Подсчет общего количества товаров
-        return sum(product.quantity for product in self.__products)
+    def get_total_product_count(self):
+        # Подсчет общего количества товаров в категории
+        self.total_product_count = sum(product.quantity for product in self.__products) if self.__products else 0
+        return self.total_product_count
 
     def add_product(self, product: Product) -> Any:
         # Check if product is an instance of Product
@@ -43,7 +40,7 @@ class Category:
             raise TypeError("Product must be an instance of Product")
         self.__products.append(product)
         self.product_name_count += 1
-        self.total_product_count += product.quantity
+        # self.total_product_count += product.quantity
 
     def print_list(self) -> Any:
         print(self.products)
@@ -59,32 +56,33 @@ class Category:
     def products(self, product: Product) -> Any:
         self.__products.append(product)
 
-if __name__ == '__main__':
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
-    category1 = Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1, product2, product3]
-    )
-    print(category1)
-    print(category1.products)
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    new_product = Product.new_product(
-        {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": 5})
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    for product in Product.all_products:
-        print(product)
-
-    print(category1)
+# if __name__ == '__main__':
+#     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+#     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+#     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+#
+#     category1 = Category(
+#         "Смартфоны",
+#         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+#         [product1, product2, product3]
+#     )
+#     print(category1)
+#     print(category1.products)
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     new_product = Product.new_product(
+#         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
+#          "quantity": 5})
+#
+#     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+#
+#     for product in Product.all_products:
+#         print(product)
+#
+#     print(category1)
