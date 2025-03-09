@@ -1,7 +1,3 @@
-from itertools import product
-
-from unicodedata import category
-
 from src.product import Product
 from typing import Any, Optional
 
@@ -36,9 +32,6 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
-    # def get_products(self):
-    #     return self.__products
-
     def print_list(self) -> Any:
         print(self.__products)
 
@@ -49,10 +42,6 @@ class Category:
             product_str += f"{str(product)}\n"
         return product_str
 
-    # @products.setter
-    # def products(self, product: Product) -> Any:
-    #     self.__products.append(product)
-    #     Category.product_count += 1
 
 if __name__ == '__main__':
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -64,6 +53,6 @@ if __name__ == '__main__':
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [product1, product2, product3]
     )
-    print(category1.products_in_list)
+    print(category1.products)
 
     print(category1)
