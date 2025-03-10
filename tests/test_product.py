@@ -2,11 +2,6 @@ import pytest
 
 from src.product import Product
 
-# @pytest.fixture
-# def empty_product_list():
-#     """Очищает список продуктов перед каждым тестом"""
-#     Product.all_products.clear()
-
 
 def test_product_init(product: Product) -> None:
     assert product.name == "Samsung Galaxy S23 Ultra"
@@ -56,3 +51,7 @@ def test_get_total_cost(test_product6: Product) -> None:
     Product.all_products.append(test_product6)
     total_cost = Product.get_total_cost()
     assert total_cost == test_product6.price * test_product6.quantity
+
+
+def test_product_add_method(product: Product, test_product4: Product) -> None:
+    assert product + test_product4 == 12

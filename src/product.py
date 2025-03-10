@@ -3,10 +3,6 @@ from typing import Any
 
 class Product:
     all_products: list = []  # Список продуктов
-    # name: str
-    # description: str
-    # price: float
-    # quantity: int
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """Определены параметры класса Product
@@ -20,6 +16,10 @@ class Product:
 
     def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        return self.quantity + other.quantity
+
 
     @property
     def price(self) -> Any:
@@ -63,3 +63,10 @@ class Product:
     def get_total_cost(cls) -> Any:
         """Подсчитывает общую стоимость товаров на складе"""
         return sum(product.price * product.quantity for product in cls.all_products)
+
+
+if __name__ == '__main__':
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+
+    print(product1 + product2)
