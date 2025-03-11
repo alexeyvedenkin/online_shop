@@ -18,8 +18,10 @@ class Product:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        return self.quantity + other.quantity
-
+        if type(other) == Product:
+            return self.quantity + other.quantity
+        else:
+            raise TypeError
 
     @property
     def price(self) -> Any:
