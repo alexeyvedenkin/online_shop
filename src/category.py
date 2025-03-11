@@ -8,7 +8,7 @@ class Category:
     description: str
     __products: list
     category_count = 0
-    # product_name_count = 0
+    product_name_count = 0
     # total_product_count = 0
 
     def __init__(self, name: str, description: str, products: Optional[Any] = None) -> None:
@@ -63,4 +63,8 @@ class Category:
 
     @products.setter
     def products(self, product: Product) -> Any:
-        self.__products.append(product)
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_name_count += 1
+        else:
+            raise TypeError
