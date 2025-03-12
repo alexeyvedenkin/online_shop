@@ -18,7 +18,7 @@ class Product:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        if type(other) == Product:
+        if isinstance(other, Product):
             return self.quantity + other.quantity
         else:
             raise TypeError
@@ -65,5 +65,3 @@ class Product:
     def get_total_cost(cls) -> Any:
         """Подсчитывает общую стоимость товаров на складе"""
         return sum(product.price * product.quantity for product in cls.all_products)
-
-
