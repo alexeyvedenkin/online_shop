@@ -1,7 +1,11 @@
 from typing import Any
 
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+
+class Product(BaseProduct, PrintMixin):
     all_products: list = []  # Список продуктов
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -13,6 +17,7 @@ class Product:
         self.quantity = quantity
         # Добавление продукта в список all_products
         Product.all_products.append(self)
+        super().__init__()
 
     def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
