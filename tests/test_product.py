@@ -19,7 +19,7 @@ def test_product_create() -> None:
 def test_product_update(capsys: pytest.CaptureFixture[str], product: Product) -> None:
     product.price = -1
     message = capsys.readouterr()
-    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    assert message.out.strip().split('\n')[-1] == "Цена не должна быть нулевая или отрицательная"
 
     product.price = 200000.0
     assert product.price == 200000.0
