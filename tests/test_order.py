@@ -1,7 +1,4 @@
-import pytest
-
 from src.order import Order
-from src.product import Product
 
 
 def test_order_init(product, quantity=2) -> None:
