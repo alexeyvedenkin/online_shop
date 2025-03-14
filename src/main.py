@@ -1,5 +1,6 @@
 from src.category import Category
 from src.lawngrass import LawnGrass
+from src.order import Order
 from src.product import Product
 from src.smartphone import Smartphone
 
@@ -128,3 +129,6 @@ if __name__ == '__main__':
         print("Возникла ошибка TypeError при добавлении не продукта")
     else:
         print("Не возникла ошибка TypeError при добавлении не продукта")
+
+    order = Order(product1, 2)
+    print(order)
