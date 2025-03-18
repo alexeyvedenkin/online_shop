@@ -1,19 +1,23 @@
 from typing import Any
 
 from src.base_product import BaseProduct
+# from src.category import Category
 from src.print_mixin import PrintMixin
 
 
 class Product(BaseProduct, PrintMixin):
     all_products: list = []  # Список продуктов
 
-    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, description: str, price: float, quantity=1) -> None:
         """Определены параметры класса Product
         """
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
         # Добавление продукта в список all_products
         Product.all_products.append(self)
         super().__init__()
@@ -51,21 +55,43 @@ class Product(BaseProduct, PrintMixin):
         if existing_product:
             print(f"Продукт с именем {data['name']} уже существует.")
             # Увеличение количества
-            existing_product.quantity += data["quantity"]
-            print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
+            if data["quantity"] > 0:
+                existing_product.quantity += data["quantity"]
+                print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
+            else:
+                print("Нельзя добавить нулевое или отрицательное количество продукта.")
             return existing_product
         else:
-            # Создание нового продукта
-            new_product = cls(
-                data["name"],  # Название
-                data["description"],  # Описание
-                data["price"],  # Цена
-                data["quantity"]  # Количество
-            )
-            cls.all_products.append(new_product)  # Добавление в список
-        return new_product
+            # Проверка количества
+            if data["quantity"] > 0:
+                # Создание нового продукта
+                new_product = cls(
+                    data["name"],  # Название
+                    data["description"],  # Описание
+                    data["price"],  # Цена
+                    data["quantity"]  # Количество
+                )
+                return new_product
+            else:
+                print("Нельзя создать продукт с нулевым или отрицательным количеством.")
+                return None
 
     @classmethod
     def get_total_cost(cls) -> Any:
         """Подсчитывает общую стоимость товаров на складе"""
         return sum(product.price * product.quantity for product in cls.all_products)
+
+
+if __name__ == '__main__':
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+
+    new_product = Product.new_product(
+        {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
+         "quantity": -5})
+
