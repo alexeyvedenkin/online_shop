@@ -1,8 +1,21 @@
+import logging
+import os
+
+from config import LOGS_DIR
 from typing import Any
 
 from src.base_product import BaseProduct
 # from src.category import Category
 from src.print_mixin import PrintMixin
+
+
+logger = logging.getLogger("product")
+logger.setLevel(logging.DEBUG)
+log_file_path = os.path.join(LOGS_DIR, 'product.log')
+file_handler = logging.FileHandler(log_file_path, "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 
 class Product(BaseProduct, PrintMixin):
