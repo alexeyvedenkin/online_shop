@@ -63,3 +63,39 @@ class Category(Trading):
             self.__products.append(product)
         else:
             raise TypeError
+
+    def avg_price_in_category(self):
+        try:
+            return (sum(product.price for product in self.products_in_list) /
+                    sum(product.quantity for product in self.products_in_list))
+        except ZeroDivisionError:
+            print("Товары в категории закончились")
+            return 0.0
+
+
+if __name__ == '__main__':
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
+
+    category1 = Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        [product1, product2, product3]
+    )
+    print(category1)
+    print(category1.products)
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+    category1.add_product(product4)
+    print(category1)
+    print(category1.products)
+
+    print(category1.avg_price_in_category())
+
+    # product5 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 0)
+    category2 = Category("Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        )
+    print(category2.avg_price_in_category())
