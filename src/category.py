@@ -1,8 +1,21 @@
+import logging
+import os
+
+from config import LOGS_DIR
 from typing import Any, Optional
 
 from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
 from src.trading import Trading
+
+
+logger = logging.getLogger("product")
+logger.setLevel(logging.DEBUG)
+log_file_path = os.path.join(LOGS_DIR, 'product.log')
+file_handler = logging.FileHandler(log_file_path, "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 
 class Category(Trading):
@@ -104,8 +117,9 @@ if __name__ == '__main__':
 
     print(category1.avg_price_in_category())
 
-    # product5 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 0)
+    product5 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 1)
     category2 = Category("Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        )
+        "Смартфоны, как средство не только коммуникации, "
+        "но и получения дополнительных функций для удобства жизни",
+                         [product5])
     print(category2.avg_price_in_category())
