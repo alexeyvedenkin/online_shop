@@ -73,8 +73,7 @@ class Product(BaseProduct, PrintMixin):
                 )
                 return new_product
             else:
-                print("Нельзя создать продукт с нулевым или отрицательным количеством.")
-                return None
+                raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
 
     @classmethod
     def get_total_cost(cls) -> Any:
@@ -89,9 +88,8 @@ if __name__ == '__main__':
 
     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
 
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 1)
 
     new_product = Product.new_product(
         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
          "quantity": -5})
-
