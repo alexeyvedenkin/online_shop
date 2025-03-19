@@ -1,5 +1,6 @@
 from typing import Any, Optional
 
+from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
 from src.trading import Trading
 
@@ -60,7 +61,16 @@ class Category(Trading):
     @products.setter
     def products(self, product: Product) -> Any:
         if isinstance(product, Product):
-            self.__products.append(product)
+            try:
+                if product.quantity <= 0:
+                    raise NonPositiveProductQuantity("Нельзя добавить товар с нулевым или отрицательным количеством")
+            except NonPositiveProductQuantity as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                print("Товар добавлен успешно")
+            finally:
+                print("Обработка добавления товара завершена")
         else:
             raise TypeError
 
