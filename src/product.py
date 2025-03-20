@@ -56,13 +56,13 @@ class Product(BaseProduct, PrintMixin):
         return self.__price
 
     @price.setter
-    def price(self, new_price: float) -> Any:
+    def price(self, new_price: float) -> None:
         logger.debug('Установлен флаг проверки подтверждения уменьшения цены в экземпляре класса Product')
         price_reducing_confirmation = True
         if new_price <= 0:
             print('Цена не должна быть нулевая или отрицательная')
             logger.error('Введена не положительная цена в экземпляре класса Product')
-            return
+            return self.price
         elif new_price < self.__price:
             logger.debug('Получена цена меньше имеющейся в экземпляре класса Product')
             if input(f'Старая цена: {self.__price}руб., новая цена: {new_price}руб. \n'
@@ -73,7 +73,7 @@ class Product(BaseProduct, PrintMixin):
             logger.info('Подтверждено уменьшение цены')
             self.__price = new_price
             logger.debug('Установлена новая цена в экземпляре класса Product')
-        return self.__price
+        # return self.price
 
     @classmethod
     def new_product(cls, data: dict) -> Any:  # Проверка наименований
@@ -90,10 +90,10 @@ class Product(BaseProduct, PrintMixin):
             else:
                 logger.info('Отказано в уменьшении количества совпадающего товара')
                 print("Нельзя добавить нулевое или отрицательное количество продукта.")
-            return existing_product
+            # return existing_product
         else:
             logger.info('Нет совпадений с имеющимися товарами')
-            # Проверка количества
+        # Проверка количества
             if data["quantity"] > 0:
                 logger.debug('Проверено количество добавляемого товара')
                 # Создание нового продукта
@@ -112,8 +112,10 @@ class Product(BaseProduct, PrintMixin):
     @classmethod
     def get_total_cost(cls) -> Any:
         """Подсчитывает общую стоимость товаров на складе"""
-        return sum(product.price * product.quantity for product in cls.all_products)
-
+        total_cost = sum(product.price * product.quantity for product in cls.all_products)
+        if total_cost == 0 and not cls.all_products:
+            return "Нет продуктов"
+        return total_cost
 
 if __name__ == '__main__':
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -122,7 +124,7 @@ if __name__ == '__main__':
 
     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
 
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 0)
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 1)
 
     new_product = Product.new_product(
         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
