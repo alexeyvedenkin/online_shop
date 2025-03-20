@@ -68,9 +68,13 @@ class Category(Trading):
                 print(str(e))
             else:
                 self.__products.append(product)
+                print()
                 print("Товар добавлен успешно")
             finally:
+                print()
                 print("Обработка добавления товара завершена")
+                print()
+
             logger.info('Товар, соответствующий классу Product, добавлен в экземпляр класса Category')
 
     @property
@@ -92,6 +96,17 @@ class Category(Trading):
         logger.info('Список товаров в экземпляре класса Category сформирован')
         return product_str
 
+    @products.setter
+    def products(self, value: Any):
+        logger.debug('Установка нового значения для свойства products в экземпляре класса Category')
+        if isinstance(value, list):
+            self.__products = value
+        elif isinstance(value, Product):
+            self.__products = [value]
+        else:
+            raise TypeError("Недопустимый тип")
+        logger.info('Свойство products в экземпляре класса Category установлено')
+
     def avg_price_in_category(self):
         if not self.__products:
             print("Товары в категории закончились")
@@ -104,46 +119,37 @@ class Category(Trading):
 
 if __name__ == '__main__':
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    print(11)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    print(12)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-    print(13)
     logger.info('Добавлены новые экземпляры класса Product')
     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
     logger.info('Успешно применен метод avg_price_in_category')
-    print(14)
+
 
     category1 = Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [product1, product2, product3]
     )
-    print(15)
+
     logger.info('Сформирован новый экземпляр класса Category')
     print(category1)
     print(category1.products)
+    print(f'Средняя цена товаров в категории:{category1.avg_price_in_category()}')
+
     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
-    print(101)
+
     category1.add_product(product4)
     print(category1.products)
-    # print(len(category1))
-    print(100)
-    print(category1)
-    print(200)
-    print(category1.products)
-    print(300)
 
     print(f'Средняя цена товаров в категории:{category1.avg_price_in_category()}')
-    print(400)
+
     product5 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 3)
-    print(500)
+
     category2 = Category("Смартфоны",
         "Смартфоны, как средство не только коммуникации, "
         "но и получения дополнительных функций для удобства жизни",
                          [product5])
     print(f'Категория: {category2.name}, {category2}')
     print(f'Средняя цена товаров в категории:{category2.avg_price_in_category()}')
-    print(600)
 
-    print(category2.avg_price_in_category())
