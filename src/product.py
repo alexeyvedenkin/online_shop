@@ -27,12 +27,16 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
+        logger.debug('Начало определения количества в экземпляре класса Product')
         if quantity > 0:
             self.quantity = quantity
+            logger.debug('Положительное количество в экземпляре класса Product')
         else:
+            logger.debug('Не положительное количество в экземпляре класса Product')
             raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
         # Добавление продукта в список all_products
         Product.all_products.append(self)
+        logger.debug('Товар добавлен в общий список класса Product')
         super().__init__()
 
     def __str__(self) -> str:
@@ -40,43 +44,58 @@ class Product(BaseProduct, PrintMixin):
 
     def __add__(self, other):
         if isinstance(other, Product):
+            logger.debug('Добавляемый объект принадлежит классу Product')
             return self.quantity + other.quantity
         else:
+            logger.debug('Добавляемый объект не принадлежит классу Product')
             raise TypeError
 
     @property
     def price(self) -> Any:
+        logger.debug('Определен параметр price в экземпляре класса Product')
         return self.__price
 
     @price.setter
     def price(self, new_price: float) -> Any:
+        logger.debug('Установлен флаг проверки подтверждения уменьшения цены в экземпляре класса Product')
         price_reducing_confirmation = True
         if new_price <= 0:
             print('Цена не должна быть нулевая или отрицательная')
+            logger.error('Введена не положительная цена в экземпляре класса Product')
             return
         elif new_price < self.__price:
+            logger.debug('Получена цена меньше имеющейся в экземпляре класса Product')
             if input(f'Старая цена: {self.__price}руб., новая цена: {new_price}руб. \n'
                      f'Подтверждаете уменьшение цены? y/n : ') not in ['Y', 'y']:
+                logger.info('Отказано в уменьшении цены')
                 price_reducing_confirmation = False
         if price_reducing_confirmation:
+            logger.info('Подтверждено уменьшение цены')
             self.__price = new_price
+            logger.debug('Установлена новая цена в экземпляре класса Product')
         return self.__price
 
     @classmethod
     def new_product(cls, data: dict) -> Any:  # Проверка наименований
+        logger.debug('Обращение к класс-методу new_product в классе Product')
         existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
         if existing_product:
+            logger.debug('Обнаружено совпадение с имеющимся товаром в классе Product')
             print(f"Продукт с именем {data['name']} уже существует.")
             # Увеличение количества
             if data["quantity"] > 0:
                 existing_product.quantity += data["quantity"]
+                logger.info('Увеличено количество совпадающего товара')
                 print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
             else:
+                logger.info('Отказано в уменьшении количества совпадающего товара')
                 print("Нельзя добавить нулевое или отрицательное количество продукта.")
             return existing_product
         else:
+            logger.info('Нет совпадений с имеющимися товарами')
             # Проверка количества
             if data["quantity"] > 0:
+                logger.debug('Проверено количество добавляемого товара')
                 # Создание нового продукта
                 new_product = cls(
                     data["name"],  # Название
@@ -84,8 +103,10 @@ class Product(BaseProduct, PrintMixin):
                     data["price"],  # Цена
                     data["quantity"]  # Количество
                 )
+                logger.info('Создан новый экземпляр класса Product')
                 return new_product
             else:
+                logger.debug('Отказано в уменьшении количества совпадающего товара')
                 raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
 
     @classmethod
@@ -101,8 +122,8 @@ if __name__ == '__main__':
 
     print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
 
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 1)
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 0)
 
     new_product = Product.new_product(
         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": -5})
+         "quantity": 1})
