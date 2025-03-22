@@ -116,16 +116,3 @@ class Product(BaseProduct, PrintMixin):
         if total_cost == 0 and not cls.all_products:
             return "Нет продуктов"
         return total_cost
-
-if __name__ == '__main__':
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-
-    print(f"Общая стоимость товаров на складе: {float(Product.get_total_cost())} руб.\n")
-
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 1)
-
-    new_product = Product.new_product(
-        {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": 1})

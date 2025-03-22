@@ -17,7 +17,7 @@ class Order(Trading):
 
     def __str__(self) -> str:
         if self.product is None:
-            return f"Заказ №{self.id_num}: Продукт не добавлен."
+            return f"Заказ №{self.id_num}: Продукт не добавлен.\n"
         return (f"Заказ №{self.id_num}: {self.product.name}, Количество: {self.quantity}, "
                 f"Общая стоимость: {self.calculate_total_cost()} руб.\n")
 
@@ -40,13 +40,3 @@ class Order(Trading):
     def calculate_total_cost(self) -> float:
         return self.product.price * self.quantity
 
-
-if __name__ == "__main__":
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-
-    order = Order()  # Create an order instance
-    order.add_product(product1, 2)  # Add product correctly
-    print(order)
-    order = Order()  # Create an order instance
-    order.add_product(product1, 0)
-    print(order)
