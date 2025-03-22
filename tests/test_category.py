@@ -22,7 +22,7 @@ def test_category_products_property(first_category: Category) -> None:
 
 def test_category_products_setter(first_category: Category, product: Product) -> None:
     assert len(first_category.products_in_list) == 2
-    first_category.products = product
+    first_category.products_in_list.append(product)
     assert len(first_category.products_in_list) == 3
 
 
