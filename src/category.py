@@ -1,9 +1,10 @@
 from typing import Any, Optional
 
 from src.product import Product
+from src.trading import Trading
 
 
-class Category:
+class Category(Trading):
     name: str
     description: str
     __products: list
