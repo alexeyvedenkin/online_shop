@@ -46,6 +46,15 @@ def product() -> Product:
 
 
 @pytest.fixture
+def category_without_product() -> Any:
+    category = Category(
+        name="Smart",
+        description="Смартфоны, как средство не только коммуникации",
+        )
+    return category
+
+
+@pytest.fixture
 def test_product4() -> Product:
     return Product("55\" QLED 4K", "Фоновая подсветка",
                    123000.0, 7)

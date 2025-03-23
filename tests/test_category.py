@@ -4,6 +4,7 @@ import pytest
 
 from src.category import Category
 from src.product import Product
+from tests.conftest import category_without_product
 
 
 def test_category_init(first_category: Category, second_category: Category) -> None:
@@ -36,3 +37,18 @@ def test_product_iterator(product_iterator: Any) -> None:
     assert next(product_iterator).name == "Samsung Galaxy S24 Ultra"
     with pytest.raises(StopIteration):
         next(product_iterator)
+
+
+def test_avg_price_with_no_products(category_without_product):
+    category = category_without_product
+    assert category.avg_price_in_category() == 0.0  # Testing for no products
+
+def test_avg_price_with_products(product, test_product4):
+    products = [product, test_product4]
+    category = Category('Smart', 'Smartphone', products)
+    assert category.avg_price_in_category() == 151500.0
+
+def test_avg_price_with_one_product(product):
+    products = [product]
+    category = Category('Smart', 'Smartphone',products)
+    assert category.avg_price_in_category() == 180000.0  # Only one product
