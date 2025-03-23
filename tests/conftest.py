@@ -93,3 +93,9 @@ def grass1() -> LawnGrass:
 def grass2() -> LawnGrass:
     return LawnGrass("Газонная трава 2", "Выносливая трава",
                      450.0, 15, "США", "5 дней", "Темно-зеленый")
+
+
+@pytest.fixture
+def test_product_without_quantity() -> Product:
+    return Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера",
+                   180000)

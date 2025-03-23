@@ -5,6 +5,7 @@ from config import LOGS_DIR
 from typing import Any
 
 from src.base_product import BaseProduct
+from src.exceptions import NonPositiveProductQuantity
 # from src.category import Category
 from src.print_mixin import PrintMixin
 
@@ -33,7 +34,7 @@ class Product(BaseProduct, PrintMixin):
             logger.debug('Положительное количество в экземпляре класса Product')
         else:
             logger.debug('Не положительное количество в экземпляре класса Product')
-            raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
+            raise NonPositiveProductQuantity('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
         # Добавление продукта в список all_products
         Product.all_products.append(self)
         logger.debug('Товар добавлен в общий список класса Product')
