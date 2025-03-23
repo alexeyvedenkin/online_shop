@@ -9,10 +9,10 @@ from src.product_iterator import ProductIterator
 from src.smartphone import Smartphone
 
 
-# @pytest.fixture
-# def empty_product_list() -> None:
-#     """Очищает список продуктов перед каждым тестом"""
-#     Product.all_products.clear()
+@pytest.fixture
+def empty_product_list() -> None:
+    """Очищает список продуктов перед каждым тестом"""
+    Product.all_products.clear()
 
 
 @pytest.fixture
@@ -114,4 +114,54 @@ def test_data():
                 "quantity": 5
             }
         ]
+    }
+
+
+@pytest.fixture
+def test_product():
+    return {
+        "name": "Samsung Galaxy C23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5
+    }
+
+
+@pytest.fixture
+def test_unique_product():
+    return {
+        "name": "Газонная трава 2",
+        "description": "Выносливая трава",
+        "price": 450.0,
+        "quantity": 15
+    }
+
+
+@pytest.fixture
+def duplicate_product():
+    return {
+        "name": "Samsung Galaxy C23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 8
+    }
+
+
+@pytest.fixture
+def new_product_negative_quantity():
+    return {
+        "name": "Samsung Galaxy C23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": -1
+    }
+
+
+@pytest.fixture
+def test_product_zero_quantity():
+    return {
+        "name": "Samsung Galaxy C23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 0
     }

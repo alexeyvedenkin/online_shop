@@ -77,7 +77,7 @@ class Product(BaseProduct, PrintMixin):
         # return self.price
 
     @classmethod
-    def new_product(cls, data: dict) -> Any:  # Проверка наименований
+    def new_product(cls, data: dict) -> 'Product':  # Проверка наименований
         logger.debug('Обращение к класс-методу new_product в классе Product')
         existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
         if existing_product:
@@ -88,10 +88,11 @@ class Product(BaseProduct, PrintMixin):
                 existing_product.quantity += data["quantity"]
                 logger.info('Увеличено количество совпадающего товара')
                 print(f"Количество продукта {data['name']} увеличено до {existing_product.quantity}.")
+                return existing_product
             else:
                 logger.info('Отказано в уменьшении количества совпадающего товара')
                 print("Нельзя добавить нулевое или отрицательное количество продукта.")
-            # return existing_product
+                return None
         else:
             logger.info('Нет совпадений с имеющимися товарами')
         # Проверка количества
@@ -108,7 +109,7 @@ class Product(BaseProduct, PrintMixin):
                 return new_product
             else:
                 logger.debug('Отказано в уменьшении количества совпадающего товара')
-                raise ValueError('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
+                raise NonPositiveProductQuantity('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
 
     @classmethod
     def get_total_cost(cls) -> Any:
