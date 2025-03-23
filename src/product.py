@@ -1,14 +1,12 @@
 import logging
 import os
-
-from config import LOGS_DIR
 from typing import Any
 
+from config import LOGS_DIR
 from src.base_product import BaseProduct
 from src.exceptions import NonPositiveProductQuantity
 # from src.category import Category
 from src.print_mixin import PrintMixin
-
 
 logger = logging.getLogger("product")
 logger.setLevel(logging.DEBUG)

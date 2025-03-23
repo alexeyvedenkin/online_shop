@@ -1,13 +1,11 @@
 import logging
 import os
-
-from config import LOGS_DIR
 from typing import Any, Optional
 
+from config import LOGS_DIR
 from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
 from src.trading import Trading
-
 
 logger = logging.getLogger("category")
 logger.setLevel(logging.DEBUG)

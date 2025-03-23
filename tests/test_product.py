@@ -1,6 +1,6 @@
-import pytest
-
 from unittest.mock import patch
+
+import pytest
 
 from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
