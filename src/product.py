@@ -107,7 +107,8 @@ class Product(BaseProduct, PrintMixin):
                 return new_product
             else:
                 logger.debug('Отказано в уменьшении количества совпадающего товара')
-                raise NonPositiveProductQuantity('«Товар с нулевым или отрицательным количеством не может быть добавлен»')
+                raise NonPositiveProductQuantity('«Товар с нулевым или отрицательным количеством '
+                                                 'не может быть добавлен»')
 
     @classmethod
     def get_total_cost(cls) -> Any:

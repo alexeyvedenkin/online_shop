@@ -50,7 +50,7 @@ def category_without_product() -> Any:
     category = Category(
         name="Smart",
         description="Смартфоны, как средство не только коммуникации",
-        )
+    )
     return category
 
 

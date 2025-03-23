@@ -90,7 +90,7 @@ class Category(Trading):
         print(self.products)
 
     @property
-    def products(self) -> Any:
+    def product_list(self) -> Any:
         logger.debug('Начало определения списка товаров в экземпляре класса Category')
         product_str = ""
         for product in self.__products:
@@ -113,6 +113,9 @@ class Category(Trading):
             print("Товары в категории закончились")
             return 0.0
         logger.debug('Начало применения метода avg_price_in_category в экземпляре класса Category')
-        result = (sum(product.price for product in self.products_in_list) /
-                len(self.products_in_list))
+        if self.products_in_list:
+            result = (sum(product.price for product in self.products_in_list)
+                      / len(self.products_in_list))  # Only calculate if the list is not empty
+        else:
+            result = 0
         return round(result, 2)

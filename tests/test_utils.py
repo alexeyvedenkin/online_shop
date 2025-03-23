@@ -35,8 +35,9 @@ def test_create_object_from_json_empty_products():
     }
     result = create_object_from_json(data)
     assert len(result) == 1                # Expect one category
-    assert result[0].name == 'Electronics' # Check category name
+    assert result[0].name == 'Electronics'  # Check category name
     assert result[0].description == 'Devices and gadgets'  # Check description
+
 
 def test_create_object_from_json_with_products(test_data):
     result = create_object_from_json(test_data)

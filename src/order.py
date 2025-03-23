@@ -1,5 +1,3 @@
-from typing import Any
-
 from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
 from src.trading import Trading
@@ -39,4 +37,3 @@ class Order(Trading):
 
     def calculate_total_cost(self) -> float:
         return self.product.price * self.quantity
-

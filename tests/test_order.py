@@ -2,7 +2,6 @@ import pytest
 
 from src.exceptions import NonPositiveProductQuantity
 from src.order import Order
-from src.product import Product
 
 
 def test_order_init() -> None:
@@ -73,6 +72,7 @@ def test_add_invalid_product_type():
     # Test for adding an invalid product
     with pytest.raises(TypeError):
         order.add_product(invalid_product, 1)
+
 
 def test_order_str_without_product():
     # Test the string representation when no product is added

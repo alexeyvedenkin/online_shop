@@ -151,6 +151,7 @@ def test_add_valid_products(test_product, test_unique_product):
     result = product1 + product2
     assert result == 8  # 5 + 3 is expected to be 8
 
+
 def test_add_invalid_type():
     # Create a Product instance
     product = Product(name='Product 1', description='First product', price=10.0, quantity=5)
