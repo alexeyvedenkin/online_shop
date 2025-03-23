@@ -24,7 +24,7 @@ class Category(Trading):
     __products: list
     category_count = 0
 
-    def __init__(self, name: str, description: str, products: Optional[Any] = None) -> None:
+    def __init__(self, name: str, description: str, products: Optional[list] = None) -> None:
         """Определены параметры класса Category
         """
         self.name = name
@@ -43,6 +43,10 @@ class Category(Trading):
     def __str__(self) -> Any:
         logger.debug('Применен метод __str__ для экземпляра класса Category')
         return f"{self.name}, количество продуктов: {self.total_product_count} шт."
+
+    @property
+    def products(self):
+        return self.__products
 
     @property
     def products_in_list(self) -> Any:
@@ -105,7 +109,6 @@ class Category(Trading):
             self.__products = [value]
         else:
             raise TypeError("Недопустимый тип")
-        logger.info('Свойство products в экземпляре класса Category установлено')
 
     def avg_price_in_category(self):
         if not self.__products:

@@ -52,3 +52,38 @@ def test_avg_price_with_one_product(product):
     products = [product]
     category = Category('Smart', 'Smartphone',products)
     assert category.avg_price_in_category() == 180000.0  # Only one product
+
+
+def test_add_product_success(first_category, product):
+    category = first_category
+    category.add_product(product)  # This should succeed
+    assert len(category._Category__products) == 3  # Check if product was added
+
+
+def test_add_product_non_positive_quantity(first_category, test_product_zero_quantity):
+    with pytest.raises(TypeError):
+        first_category.add_product(test_product_zero_quantity)  # Should raise an error
+
+
+def test_setter_with_valid_list(first_category, product):
+    new_products = [product]
+    first_category.products = new_products
+
+    # Сравните список продуктов с ожидаемым списком новых продуктов
+    expected_string = ''.join(str(prod) for prod in new_products)  # Combine string representations
+    assert str(first_category.products).strip() == expected_string.strip()
+
+
+def test_setter_with_single_product(first_category, product):
+    new_products = [product]  # Define new_products with the product fixture
+    first_category.products = product  # Set a single product to first_category
+
+    # Test if products can be set with a single product
+    expected_string = ''.join(str(prod) for prod in new_products)  # Combine string representations
+    assert str(first_category.products).strip() == expected_string.strip()
+
+
+def test_setter_with_invalid_type(first_category):
+    # Test if a TypeError is raised for invalid input
+    with pytest.raises(TypeError):
+        first_category.products = "Invalid product"
