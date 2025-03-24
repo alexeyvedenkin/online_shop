@@ -32,4 +32,6 @@ class Order(Trading):
             print("Обработка добавления товара завершена")
 
     def calculate_total_cost(self) -> float:
-        return self.product.price * self.quantity
+        if self.product:  # Проверка, установлен ли продукт
+            return self.product.price * self.quantity
+        return 0.0
