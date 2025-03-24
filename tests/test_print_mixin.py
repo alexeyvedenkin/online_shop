@@ -1,9 +1,11 @@
+import pytest
+
 from src.lawngrass import LawnGrass
 from src.product import Product
 from src.smartphone import Smartphone
 
 
-def test_print_mixin(capsys):
+def test_print_mixin(capsys: pytest.CaptureFixture[str]) -> None:
     Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера",
             180000, 5)
     message = capsys.readouterr()

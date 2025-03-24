@@ -43,7 +43,7 @@ class Category(Trading):
         return f"{self.name}, количество продуктов: {self.total_product_count} шт."
 
     @property
-    def products(self):
+    def products(self: Any) -> Any:
         return self.__products
 
     @property
@@ -94,7 +94,7 @@ class Category(Trading):
         return product_str.strip()
 
     @products.setter
-    def products(self, value: Any):
+    def products(self: Any, value: Any) -> None:
         logger.debug('Установка нового значения для свойства products в экземпляре класса Category')
         if isinstance(value, list):
             self.__products = value
@@ -103,7 +103,7 @@ class Category(Trading):
         else:
             raise TypeError("Недопустимый тип")
 
-    def avg_price_in_category(self):
+    def avg_price_in_category(self: Any) -> float:
         if not self.__products:
             print("Товары в категории закончились")
             return 0.0

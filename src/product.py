@@ -20,7 +20,7 @@ logger.addHandler(file_handler)
 class Product(BaseProduct, PrintMixin):
     all_products: list = []  # Список продуктов
 
-    def __init__(self, name: str, description: str, price: float, quantity=1) -> None:
+    def __init__(self: Any, name: str, description: str, price: float, quantity: int = 1) -> None:
         """Определены параметры класса Product
         """
         self.name = name
@@ -41,7 +41,7 @@ class Product(BaseProduct, PrintMixin):
     def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other):
+    def __add__(self: Any, other: Any) -> int:
         if isinstance(other, Product):
             logger.debug('Добавляемый объект принадлежит классу Product')
             return self.quantity + other.quantity
@@ -75,7 +75,7 @@ class Product(BaseProduct, PrintMixin):
         # return self.price
 
     @classmethod
-    def new_product(cls, data: dict) -> 'Product':  # Проверка наименований
+    def new_product(cls, data: dict[Any, Any]) -> 'Product':  # Проверка наименований
         logger.debug('Обращение к класс-методу new_product в классе Product')
         existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
         if existing_product:
@@ -107,8 +107,8 @@ class Product(BaseProduct, PrintMixin):
                 return new_product
             else:
                 logger.debug('Отказано в уменьшении количества совпадающего товара')
-                raise NonPositiveProductQuantity('«Товар с нулевым или отрицательным количеством '
-                                                 'не может быть добавлен»')
+                raise NonPositiveProductQuantity(
+                    '«Товар с нулевым или отрицательным количеством не может быть добавлен»')
 
     @classmethod
     def get_total_cost(cls) -> Any:

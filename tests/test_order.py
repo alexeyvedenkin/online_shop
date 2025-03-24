@@ -1,7 +1,10 @@
 import pytest
 
+from typing import Any
+
 from src.exceptions import NonPositiveProductQuantity
 from src.order import Order
+from src.product import Product
 
 
 def test_order_init() -> None:
@@ -10,7 +13,7 @@ def test_order_init() -> None:
     assert order.quantity == 0
 
 
-def test_add_product_success(product):
+def test_add_product_success(product: Product) -> None:
     order = Order()
     order.add_product(product, 2)
     assert order.product == product
@@ -18,25 +21,22 @@ def test_add_product_success(product):
     assert order.calculate_total_cost() == 360000.0
 
 
-def test_add_invalid_product(test_product_without_quantity):
-    order = Order()  # Create a new Order instance
+def test_add_invalid_product(test_product_without_quantity: Any) -> None:
+    order = Order()
 
-    # Test for adding a product without specifying quantity
     try:
-        order.add_product(test_product_without_quantity, None)  # Pass None as quantity
+        order.add_product(test_product_without_quantity, None)
     except TypeError:
         pass
 
-    # Test for adding a product with invalid (negative) quantity
     with pytest.raises(NonPositiveProductQuantity):
         order.add_product(test_product_without_quantity, -1)
 
-    # Test for adding a product with zero quantity
     with pytest.raises(NonPositiveProductQuantity):
         order.add_product(test_product_without_quantity, 0)
 
 
-def test_order_str(test_product6):
+def test_order_str(test_product6: Product) -> None:
     order = Order()
     order.add_product(test_product6, 1)
     order_str = str(order)
@@ -45,7 +45,7 @@ def test_order_str(test_product6):
     assert str(test_product6.price * 1) in order_str
 
 
-def test_order_str_with_product(product):
+def test_order_str_with_product(product: Product) -> None:
     order = Order()
     order.add_product(product, 2)
     expected_id_num = order.id_num
@@ -53,29 +53,26 @@ def test_order_str_with_product(product):
     assert str(order) == expected_str
 
 
-def test_add_valid_product(test_product_without_quantity):
-    order = Order()  # Create a new Order instance
+def test_add_valid_product(test_product_without_quantity: Any) -> None:
+    order = Order()
 
-    # Test adding a valid product with positive quantity
     try:
         order.add_product(test_product_without_quantity, 1)
-        assert order.product == test_product_without_quantity  # Ensure product was set
-        assert order.quantity == 1  # Check quantity is set correctly
+        assert order.product == test_product_without_quantity
+        assert order.quantity == 1
     except Exception:
         pytest.fail("Adding valid product raised an exception.")
 
 
-def test_add_invalid_product_type():
-    order = Order()  # Create a new Order instance
-    invalid_product = ''  # Create an instance of InvalidProduct
+def test_add_invalid_product_type() -> None:
+    order = Order()
+    invalid_product = ''
 
-    # Test for adding an invalid product
     with pytest.raises(TypeError):
         order.add_product(invalid_product, 1)
 
 
-def test_order_str_without_product():
-    # Test the string representation when no product is added
+def test_order_str_without_product() -> None:
     order = Order()
     expected_str = f"Заказ №{order.id_num}: Продукт не добавлен.\n"
     assert str(order) == expected_str

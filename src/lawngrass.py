@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.product import Product
 
 
@@ -9,7 +11,7 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
-    def __add__(self, other):
+    def __add__(self, other: Any) -> Any:
         if isinstance(other, LawnGrass):
             return self.quantity + other.quantity
         else:

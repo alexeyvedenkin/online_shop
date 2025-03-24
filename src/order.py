@@ -28,10 +28,6 @@ class Order(Trading):
             self.product = product
             self.quantity = quantity
             print("Товар добавлен успешно")
-        # except NonPositiveProductQuantity as e:
-        #     print(str(e))
-        # except TypeError as te:
-        #     print(str(te))
         finally:
             print("Обработка добавления товара завершена")
 

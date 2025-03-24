@@ -1,7 +1,10 @@
 import pytest
 
+from src.smartphone import Smartphone
+from typing import Any
 
-def test_smartphone_init(smartphone1) -> None:
+
+def test_smartphone_init(smartphone1: Any) -> None:
     assert smartphone1.name == "Samsung Galaxy S23 Ultra"
     assert smartphone1.description == "256GB, Серый цвет, 200MP камера"
     assert smartphone1.price == 180000.0
@@ -12,10 +15,10 @@ def test_smartphone_init(smartphone1) -> None:
     assert smartphone1.color == "Серый"
 
 
-def test_smartphone_add(smartphone1, smartphone2) -> None:
+def test_smartphone_add(smartphone1: Smartphone, smartphone2: Smartphone) -> None:
     assert smartphone1 + smartphone2 == 13
 
 
-def test_smartphone_add_error(smartphone1, smartphone2) -> None:
+def test_smartphone_add_error(smartphone1: Smartphone, smartphone2: Smartphone) -> None:
     with pytest.raises(TypeError):
         smartphone1 + 1

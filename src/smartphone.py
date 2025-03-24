@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.product import Product
 
 
@@ -10,7 +12,7 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
-    def __add__(self, other):
+    def __add__(self: Any, other: Any) -> Any:
         if isinstance(other, Smartphone):
             return self.quantity + other.quantity
         else:

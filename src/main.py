@@ -136,4 +136,3 @@ if __name__ == '__main__':
     order = Order()
     order.add_product(product2, 5)
     print(str(order))
-
