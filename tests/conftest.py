@@ -102,7 +102,7 @@ def test_product_without_quantity() -> Product:
 
 
 @pytest.fixture
-def test_data():
+def test_data() -> Any:
     return {
         "name": "Смартфоны",
         "description": "Смартфоны, как средство не только коммуникации",
@@ -118,7 +118,7 @@ def test_data():
 
 
 @pytest.fixture
-def test_product():
+def test_product() -> Any:
     return {
         "name": "Samsung Galaxy C23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
@@ -128,7 +128,9 @@ def test_product():
 
 
 @pytest.fixture
-def test_unique_product():
+def test_unique_product() -> Any:
+    """Тестовый продукт, не определенный ранее
+        """
     return {
         "name": "Газонная трава 2",
         "description": "Выносливая трава",
@@ -138,7 +140,9 @@ def test_unique_product():
 
 
 @pytest.fixture
-def duplicate_product():
+def duplicate_product() -> Any:
+    """Тестовый продукт, дублирующий наименование
+        """
     return {
         "name": "Samsung Galaxy C23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
@@ -148,7 +152,9 @@ def duplicate_product():
 
 
 @pytest.fixture
-def new_product_negative_quantity():
+def new_product_negative_quantity() -> Any:
+    """Тестовый продукт с отрицательным количеством
+        """
     return {
         "name": "Samsung Galaxy C23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
@@ -158,10 +164,18 @@ def new_product_negative_quantity():
 
 
 @pytest.fixture
-def test_product_zero_quantity():
+def test_product_zero_quantity() -> Any:
+    """Тестовый продукт с нулевым количеством
+    """
     return {
         "name": "Samsung Galaxy C23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
         "price": 180000.0,
         "quantity": 0
     }
+
+
+# @pytest.fixture
+# def empty_category() -> Category:
+#     """A test fixture that creates a Category with no products."""
+#     return Category(name="Empty", description="Category with no products")

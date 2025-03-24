@@ -79,24 +79,19 @@ class Category(Trading):
 
             logger.info('Товар, соответствующий классу Product, добавлен в экземпляр класса Category')
 
-    @property
-    def get_total_product_count(self) -> Any:
-        # Подсчет общего количества товаров в категории
-        self.total_product_count = sum(product.quantity for product in self.__products) if self.__products else 0
-        return self.total_product_count
-
     def print_list(self) -> Any:
         logger.debug('Применен метод print_list для экземпляра класса Category')
-        print(self.products)
+        for product in self.products:  # Iterate through products
+            print(product)
 
     @property
     def product_list(self) -> Any:
         logger.debug('Начало определения списка товаров в экземпляре класса Category')
         product_str = ""
         for product in self.__products:
-            product_str += f"{str(product)}\n"
+            product_str += str(product) + '\n'
         logger.info('Список товаров в экземпляре класса Category сформирован')
-        return product_str
+        return product_str.strip()
 
     @products.setter
     def products(self, value: Any):
