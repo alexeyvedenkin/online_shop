@@ -18,10 +18,12 @@ logger.addHandler(file_handler)
 
 
 class Product(BaseProduct, PrintMixin):
+    """Определяет перечень товаров, предназначенных к продаже
+    """
     all_products: list = []  # Список продуктов
 
     def __init__(self: Any, name: str, description: str, price: float, quantity: int = 1) -> None:
-        """Определены параметры класса Product
+        """Определяет параметры для экземпляра класса Product
         """
         self.name = name
         self.description = description
@@ -39,9 +41,14 @@ class Product(BaseProduct, PrintMixin):
         super().__init__()
 
     def __str__(self) -> str:
+        """Определяет формат вывода информации о товарах в консоль
+        """
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self: Any, other: Any) -> int:
+        """Выполняет суммирование количества двух экземпляров
+        класса Product
+        """
         if isinstance(other, Product):
             logger.debug('Добавляемый объект принадлежит классу Product')
             return self.quantity + other.quantity
@@ -51,11 +58,16 @@ class Product(BaseProduct, PrintMixin):
 
     @property
     def price(self) -> Any:
+        """Фиксирует параметр price экземпляра класса Product, как приватный
+        """
         logger.debug('Определен параметр price в экземпляре класса Product')
         return self.__price
 
     @price.setter
     def price(self, new_price: float) -> None:
+        """Выполняет проверку на соответствие типа
+        и устанавливает новое значение для свойства price
+        """
         logger.debug('Установлен флаг проверки подтверждения уменьшения цены в экземпляре класса Product')
         price_reducing_confirmation = True
         if new_price <= 0:
@@ -72,10 +84,11 @@ class Product(BaseProduct, PrintMixin):
             logger.info('Подтверждено уменьшение цены')
             self.__price = new_price
             logger.debug('Установлена новая цена в экземпляре класса Product')
-        # return self.price
 
     @classmethod
     def new_product(cls, data: dict[Any, Any]) -> 'Product':  # Проверка наименований
+        """Выполняет добавление нового экземпляра класса Product
+        """
         logger.debug('Обращение к класс-методу new_product в классе Product')
         existing_product = next((p for p in cls.all_products if p.name == data["name"]), None)
         if existing_product:
@@ -112,7 +125,8 @@ class Product(BaseProduct, PrintMixin):
 
     @classmethod
     def get_total_cost(cls) -> Any:
-        """Подсчитывает общую стоимость товаров на складе"""
+        """Подсчитывает общую стоимость товаров на складе
+        """
         total_cost = sum(product.price * product.quantity for product in cls.all_products)
         if total_cost == 0 and not cls.all_products:
             return "Нет продуктов"

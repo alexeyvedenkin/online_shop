@@ -17,6 +17,9 @@ logger.addHandler(file_handler)
 
 
 class Category(Trading):
+    """Определяет группировку товаров,
+    предназначенных для продажи
+    """
     name: str
     description: str
     __products: list
@@ -39,26 +42,38 @@ class Category(Trading):
         Category.category_count += 1
 
     def __str__(self) -> Any:
+        """Определяет формат вывода в консоль экземпляра класса Category
+        """
         logger.debug('Применен метод __str__ для экземпляра класса Category')
         return f"{self.name}, количество продуктов: {self.total_product_count} шт."
 
     @property
     def products(self: Any) -> Any:
+        """Возвращает список продуктов в категории
+        """
         return self.__products
 
     @property
     def products_in_list(self) -> Any:
+        """Определяет перечень товаров в экземпляре класса Category
+        """
         return self.__products
 
     @property
     def product_name_count(self) -> int:
+        """Определяет количество видов товаров в экземпляре класса Category
+        """
         return len(self.__products)
 
     @property
     def total_product_count(self) -> float:
+        """Определяет общую стоимость товаров в экземпляре класса Category
+        """
         return sum(product.quantity for product in self.__products) if self.__products else 0
 
     def add_product(self, product: Product) -> Any:
+        """Реализует добавление товара в экземпляр класса Category
+        """
         if not isinstance(product, Product):
             logger.debug('Не выполнено соответствие товара классу Product')
             raise TypeError("Товар должен соответствовать классу Product")
@@ -80,12 +95,17 @@ class Category(Trading):
             logger.info('Товар, соответствующий классу Product, добавлен в экземпляр класса Category')
 
     def print_list(self) -> Any:
+        """Определяет формат вывода списка товаров в экземпляре
+        класса Category в консоль
+        """
         logger.debug('Применен метод print_list для экземпляра класса Category')
         for product in self.products:  # Iterate through products
             print(product)
 
     @property
     def product_list(self) -> Any:
+        """Задает список товаров в экземпляре класса Category
+        """
         logger.debug('Начало определения списка товаров в экземпляре класса Category')
         product_str = ""
         for product in self.__products:
@@ -95,6 +115,9 @@ class Category(Trading):
 
     @products.setter
     def products(self: Any, value: Any) -> None:
+        """Выполняет проверку на соответствие типа
+        и устанавливает новое значение для свойства products
+        """
         logger.debug('Установка нового значения для свойства products в экземпляре класса Category')
         if isinstance(value, list):
             self.__products = value
@@ -104,6 +127,8 @@ class Category(Trading):
             raise TypeError("Недопустимый тип")
 
     def avg_price_in_category(self: Any) -> float:
+        """Определяет средний ценник товаров в экземпляре класса Category
+        """
         if not self.__products:
             print("Товары в категории закончились")
             return 0.0
