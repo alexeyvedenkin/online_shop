@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     new_product = Product.new_product(
         {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": 5})
+         "quantity": 2})
 
     print()
     print(new_product.name)
@@ -130,5 +130,9 @@ if __name__ == '__main__':
     else:
         print("Не возникла ошибка TypeError при добавлении не продукта")
 
-    order = Order(product1, 2)
-    print(order)
+    order = Order()
+    order.add_product(product1, 2)
+    print(str(order))
+    order = Order()
+    order.add_product(product2, 5)
+    print(str(order))

@@ -1,71 +1,141 @@
+import logging
+import os
 from typing import Any, Optional
 
+from config import LOGS_DIR
+from src.exceptions import NonPositiveProductQuantity
 from src.product import Product
 from src.trading import Trading
 
+logger = logging.getLogger("category")
+logger.setLevel(logging.DEBUG)
+log_file_path = os.path.join(LOGS_DIR, 'category.log')
+file_handler = logging.FileHandler(log_file_path, "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
+
 
 class Category(Trading):
+    """Определяет группировку товаров,
+    предназначенных для продажи
+    """
     name: str
     description: str
     __products: list
     category_count = 0
-    # product_name_count = 0
-    # total_product_count = 0
 
-    def __init__(self, name: str, description: str, products: Optional[Any] = None) -> None:
+    def __init__(self, name: str, description: str, products: Optional[list] = None) -> None:
         """Определены параметры класса Category
         """
         self.name = name
+        logger.debug('Определен атрибут name для экземпляра класса Category')
         self.description = description
+        logger.debug('Определен атрибут description для экземпляра класса Category')
         if isinstance(products, list):
             self.__products = products if products else []
+            logger.debug('Добавлен список products в экземпляр класса Category')
         else:
             self.__products = [products] if products else []
+            logger.debug('Добавлен пустой список для атрибута products в экземпляр класса Category')
+
         Category.category_count += 1
-        # self.product_name_count = len(self.__products)
-        # self.total_product_count = sum(product.quantity for product in self.__products) if self.__products else 0
 
     def __str__(self) -> Any:
+        """Определяет формат вывода в консоль экземпляра класса Category
+        """
+        logger.debug('Применен метод __str__ для экземпляра класса Category')
         return f"{self.name}, количество продуктов: {self.total_product_count} шт."
 
     @property
+    def products(self: Any) -> Any:
+        """Возвращает список продуктов в категории
+        """
+        return self.__products
+
+    @property
     def products_in_list(self) -> Any:
+        """Определяет перечень товаров в экземпляре класса Category
+        """
         return self.__products
 
     @property
     def product_name_count(self) -> int:
+        """Определяет количество видов товаров в экземпляре класса Category
+        """
         return len(self.__products)
 
     @property
     def total_product_count(self) -> float:
+        """Определяет общую стоимость товаров в экземпляре класса Category
+        """
         return sum(product.quantity for product in self.__products) if self.__products else 0
 
     def add_product(self, product: Product) -> Any:
-        # Check if product is an instance of Product
+        """Реализует добавление товара в экземпляр класса Category
+        """
         if not isinstance(product, Product):
-            raise TypeError("Product must be an instance of Product")
-        self.__products.append(product)
+            logger.debug('Не выполнено соответствие товара классу Product')
+            raise TypeError("Товар должен соответствовать классу Product")
+        else:
+            try:
+                if product.quantity <= 0:
+                    raise NonPositiveProductQuantity("Нельзя добавить товар с нулевым или отрицательным количеством")
+            except NonPositiveProductQuantity as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                print()
+                print("Товар добавлен успешно")
+            finally:
+                print()
+                print("Обработка добавления товара завершена")
+                print()
 
-    @property
-    def get_total_product_count(self) -> Any:
-        # Подсчет общего количества товаров в категории
-        self.total_product_count = sum(product.quantity for product in self.__products) if self.__products else 0
-        return self.total_product_count
+            logger.info('Товар, соответствующий классу Product, добавлен в экземпляр класса Category')
 
     def print_list(self) -> Any:
-        print(self.products)
+        """Определяет формат вывода списка товаров в экземпляре
+        класса Category в консоль
+        """
+        logger.debug('Применен метод print_list для экземпляра класса Category')
+        for product in self.products:  # Iterate through products
+            print(product)
 
     @property
-    def products(self) -> Any:
+    def product_list(self) -> Any:
+        """Задает список товаров в экземпляре класса Category
+        """
+        logger.debug('Начало определения списка товаров в экземпляре класса Category')
         product_str = ""
         for product in self.__products:
-            product_str += f"{str(product)}\n"
-        return product_str
+            product_str += str(product) + '\n'
+        logger.info('Список товаров в экземпляре класса Category сформирован')
+        return product_str.strip()
 
     @products.setter
-    def products(self, product: Product) -> Any:
-        if isinstance(product, Product):
-            self.__products.append(product)
-            # Category.product_name_count += 1
+    def products(self: Any, value: Any) -> None:
+        """Выполняет проверку на соответствие типа
+        и устанавливает новое значение для свойства products
+        """
+        logger.debug('Установка нового значения для свойства products в экземпляре класса Category')
+        if isinstance(value, list):
+            self.__products = value
+        elif isinstance(value, Product):
+            self.__products = [value]
         else:
-            raise TypeError
+            raise TypeError("Недопустимый тип")
+
+    def avg_price_in_category(self: Any) -> float:
+        """Определяет средний ценник товаров в экземпляре класса Category
+        """
+        if not self.__products:
+            print("Товары в категории закончились")
+            return 0.0
+        logger.debug('Начало применения метода avg_price_in_category в экземпляре класса Category')
+        if self.products_in_list:
+            result = (sum(product.price for product in self.products_in_list)
+                      / len(self.products_in_list))  # Only calculate if the list is not empty
+        else:
+            result = 0
+        return round(result, 2)
